@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* outline: 1px solid brown; */
+}
+
+
+/* CSS for the navbar at the top, this sets the background colour, esnures it stays at the top of the screen during scrolling, makes sure theres no gap and also aligns all the text in the center */
+
+.navbar {
+    background-color: #2596be;
+    position: sticky;
+    top: 0;
+    text-align: center;
+    z-index: 1;
+}
+
+.menuitems {
+    display: inline-block;
+    color: white;
+    padding: 1em 5%;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Gill Sans';
+}
+
+
+/* This ensures that if a menu item is hovered upon, it changes colour to reflect the hover */
+
+.menuitems a:hover {
+    background-color: rgb(142, 165, 187);
+}
+
+.formdecorations {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Gill Sans', sans-serif;
+    color: #38444c;
+    background-color: #9cc7d6;
+    border-radius: 6%;
+}
+
+.tdFormatting {
+    text-align: left;
+    padding-left: 30%;
+}
+
+label {
+    vertical-align: top;
+}
+
+.createTask {
+    font-family: 'Gill Sans';
+    color: #306399;
+    border: 0;
+    border-radius: .5rem;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    width: 20%;
+    padding: 1% 2%;
+}
+
+.headingAllTasks {
+    padding-left: 10%;
+    text-align: center;
+    font-size: 150%;
+}
+
+.tdPadding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+}
+
+.box {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: #191970;
+}
+
+.form {
+    width: 380px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 30px;
+}
