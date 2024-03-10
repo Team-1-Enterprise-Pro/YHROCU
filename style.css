@@ -1,0 +1,170 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.box {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: #191970;
+}
+
+.form {
+    width: 380px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.button-box {
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px #B0E0E6;
+    border-radius: 30px;
+}
+
+.toggle-btn {
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+}
+
+.btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: #48D1CC;
+    border-radius: 30px;
+    transition: .5s;
+}
+
+.input-box {
+    top: 220px;
+    position: absolute;
+    width: 280px;
+    transition: .5s
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.enter-btn {
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: #48D1CC;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+
+.logo {
+    width: 250px;
+    height: auto;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    padding-bottom: 50px
+}
+
+.fa {
+    color: black;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.input-container i {
+    margin-right: 10px;
+}
+
+#login {
+    left: 50px;
+}
+
+#signup {
+    left: 450px;
+}
+
+.navbar {
+    background-color: #48D1CC;
+    position: sticky;
+    top: 0;
+    text-align: center;
+    z-index: 1;
+}
+
+.menuitems {
+    display: inline-block;
+    color: white;
+    padding: 1em 5%;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Gill Sans';
+}
+
+.menuitems a:hover {
+    background-color: rgb(142, 165, 187);
+}
+
+.headingAllTasks {
+    padding-left: 10%;
+    text-align: center;
+    font-size: 150%;
+}
+
+.createTaskForm {
+    width: 50%;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.taskFormContentWrapper {
+    position: absolute;
+    top: -50px;
+    left: 300px;
+    width: 300px;
+    height: 300px;
+}
+
+.taskFormContent {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+}
