@@ -169,7 +169,9 @@
     margin: 0 auto;
 }
 
+
 /* Popup Styles */
+
 .popup {
     display: none;
     position: fixed;
@@ -197,7 +199,9 @@
     cursor: pointer;
 }
 
+
 /* Update List Styles */
+
 #updatesTable {
     flex: 1;
     margin-top: 20px;

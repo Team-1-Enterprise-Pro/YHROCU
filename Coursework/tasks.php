@@ -1,4 +1,15 @@
 <?php
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+header("Pragma: no-cache"); // HTTP 1.0.
+header("Expires: 0"); // Proxies.
+session_start();
+
+// Check if user is not logged in
+if(!isset($_SESSION["user_id"])) {
+    // User is not logged in, redirect to login page
+    header("Location: login.html");
+    exit();}
+    
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -32,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
     <div class="navbar">
         <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
-        <div class="menuitems"><a href="">Search Task</a></div>
-        <div class="menuitems"><a href="login.html">Logout</a></div>
+        <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
+        <div class="menuitems"><a href="logout.php">Logout</a></div>
     </div>
 
     <div id="updatePopup" class="popup">
@@ -92,11 +103,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
             echo "<td>";
             echo "<form method='POST' action='' class='userform' onsubmit='return confirmDelete()'>";
             echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
-            echo "<input type='submit' name='deleteTask' value='Delete' class='button-box'>";
+            echo "<input type='submit' name='deleteTask' value='Delete'>";
             echo "</form>";
             echo "</td>";
             echo "<td>";
-            echo "<button onclick='openUpdatesList(\"" . $row["taskName"] . "\")' class='button-box'>View Updates</button>";
+            echo "<button onclick='openUpdatesList(\"" . $row["taskName"] . "\")'>View Updates</button>";
+            echo "<button onclick='taskCompleted(this)' name='completeTask'>Complete</button>";
             echo "</td>";
             echo "</tr>";
         }
@@ -127,6 +139,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         function closeUpdatePopup() {
             document.getElementById("updatePopup").style.display = "none";
         }
+
+    
+        function taskCompleted(button) {
+            var row = button.closest('tr');
+        row.style.backgroundColor = "green";}
+
     </script>
 </body>
 

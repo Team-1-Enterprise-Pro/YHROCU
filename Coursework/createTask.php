@@ -1,4 +1,14 @@
 <?php
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+header("Pragma: no-cache"); // HTTP 1.0.
+header("Expires: 0"); // Proxies.
+session_start();
+
+// Check if user is not logged in
+if(!isset($_SESSION["user_id"])) {
+    // User is not logged in, redirect to login page
+    header("Location: login.html");
+    exit();}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input from the login form
@@ -55,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>YHROCU</title>
     <!--Linking the style sheet-->
     <link rel="stylesheet" href="style.css">
+    
 </head>
 
 <body>
@@ -62,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="navbar">
         <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
+        <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
         <div class="menuitems"><a href="login.html">Logout</a></div>
     </div>
 
