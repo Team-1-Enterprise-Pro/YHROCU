@@ -1,16 +1,16 @@
+//this script creates a toggle button between the login and signup page
+var x = document.getElementById("login");
+var y = document.getElementById("signup");
+var z = document.getElementById("btn");
 
-	var x = document.getElementById("login");
-	var y = document.getElementById("signup");
-	var z = document.getElementById("btn");
+function signup() {
+    x.style.left = "-400px";
+    y.style.left = "50px";
+    z.style.left = "110px";
+}
 
-	function signup(){
-		x.style.left = "-400px";
-		y.style.left = "50px";
-		z.style.left = "110px";
-	}
-	
-	function login(){
-		x.style.left = "50px";
-		y.style.left = "450px";
-		z.style.left = "0px";
-	}
+function login() {
+    x.style.left = "50px";
+    y.style.left = "450px";
+    z.style.left = "0px";
+}

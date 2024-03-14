@@ -1,8 +1,13 @@
+/*sets page margins to 0 to ensure no white gaps and sets a universal/default font style*/
+
 * {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
 }
+
+
+/* This creates a box which serves as a background for all of the screens */
 
 .box {
     height: 100%;
@@ -10,6 +15,9 @@
     position: absolute;
     background: #191970;
 }
+
+
+/* CSS for the login/signup forms */
 
 .form {
     width: 380px;
@@ -23,6 +31,9 @@
     overflow: hidden;
     border-radius: 30px;
 }
+
+
+/* CSS for buttons on login and signup pages */
 
 .button-box {
     width: 220px;
@@ -59,6 +70,9 @@
     transition: .5s
 }
 
+
+/* CSS for input fields on login and signup */
+
 .input-field {
     width: 100%;
     padding: 10px 0;
@@ -82,6 +96,9 @@
     outline: none;
     border-radius: 30px;
 }
+
+
+/* CSS for the logo on the login an sign up pages */
 
 .logo {
     width: 250px;
@@ -115,6 +132,9 @@
     left: 450px;
 }
 
+
+/* CSS for the navbar at the top, this sets the background colour, esnures it stays at the top of the screen during scrolling, makes sure theres no gap and also aligns all the text in the center */
+
 .navbar {
     background-color: #48D1CC;
     position: sticky;
@@ -132,9 +152,15 @@
     font-family: 'Gill Sans';
 }
 
+
+/* This ensures that if a menu item is hovered upon, it changes colour to reflect the hover */
+
 .menuitems a:hover {
     background-color: rgb(142, 165, 187);
 }
+
+
+/* CSS for the create and view task pages, mainly just ensures it is somewhat presentable on the screen */
 
 .headingAllTasks {
     padding-left: 10%;
@@ -193,6 +219,9 @@
     display: flex;
     flex-direction: column;
 }
+
+
+/* CSS to close the popup box for task updates */
 
 .close {
     float: right;

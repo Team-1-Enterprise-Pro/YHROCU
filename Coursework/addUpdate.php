@@ -12,18 +12,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Prepare data for insertion
+// Preparing data to be added into the database
 $taskName = $_POST["taskName"];
 $update = $_POST["update"];
 
-// Perform insertion
+// adding into the respective table
 $sql = "INSERT INTO taskupdates (taskName, `update`) VALUES ('$taskName', '$update')";
 
 if ($conn->query($sql) === TRUE) {
     header("Location:tasks.php");
 			exit();
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $sql . "<br>" . $conn->error; //error handling
 }
 
 $conn->close();

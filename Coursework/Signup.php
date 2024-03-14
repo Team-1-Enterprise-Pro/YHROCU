@@ -1,6 +1,7 @@
 <?php
-	include("connect.php");
+	include("connect.php");//establishing a connection to the database
 
+	//getting all of the signup information from the user to add to the database
 	if(isset($_POST["form1"])){
 		$staffNumber = $_POST["staffNumber"];
 		$firstName = $_POST["firstName"];

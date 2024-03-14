@@ -1,23 +1,24 @@
 <?php
-header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-header("Pragma: no-cache"); // HTTP 1.0.
-header("Expires: 0"); // Proxies.
+//this clears the cache so when the user logs out they cant click the back to access content again
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache"); 
+header("Expires: 0");
 session_start();
 
-// Check if user is not logged in
+// checks if user is not logged in
 if(!isset($_SESSION["user_id"])) {
-    // User is not logged in, redirect to login page
+    // if the uer is not logged in, it redirects them to the login page
     header("Location: login.html");
     exit();}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get user input from the login form
+    // get user input from the login form
     $taskName = $_POST["taskName"];
     $taskDescription = $_POST["taskDescription"];
     $taskDate = $_POST["taskDate"];
     $taskViewers = $_POST["taskViewers"];
 
-    // Establish a database connection and verify the user's credentials
+    // making a connection to the database
     $servername = "localhost";
     $db_username = "root"; 
     $db_password = "";
@@ -30,12 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    // Check if task name already exists
+    // check if the task name already exists, so tasks are not duplicated when creating
     $sql3 = "SELECT * FROM taskList WHERE taskName = '$taskName'";
     $checkIfExists = mysqli_query($conn, $sql3);
 
     if (mysqli_num_rows($checkIfExists) == 0) {
-        // Insert task into the table
+        // if it doednt exist then the task gets inserted into the table
         $insertToTable = "INSERT INTO taskList (taskName, taskDescription, taskDate, whoCanView) VALUES ('$taskName', '$taskDescription', '$taskDate', '$taskViewers')";
 
         if (mysqli_query($conn, $insertToTable)) {
@@ -77,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="menuitems"><a href="login.html">Logout</a></div>
     </div>
 
+    <!-- this is the html form to create a task -->
     <div class="box">
     <div class="createTaskForm">
         <form method="POST" action="createTask.php" class="input-box">
