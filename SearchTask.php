@@ -1,17 +1,37 @@
+<?php 
+
+//this clears the cache so when the user logs out they cant click the back to access content again
+header("Cache-Control: no-cache, no-store, must-revalidate"); 
+header("Pragma: no-cache"); 
+header("Expires: 0"); 
+session_start();
+
+// Check if user is not logged in
+if(!isset($_SESSION["user_id"])) {
+    // User is not logged in, redirect to login page
+    header("Location: login.html");
+    exit();}?>
+
+
 <html>
 <head>
     <!--Title of the webpage-->
     <title>YHROCU</title>
     <!--Linking the style sheet-->
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
+    <!--code for the navbar-->
     <div class="navbar">
-        <div class="menuitems"><a href="createTask.php">Create Task</a></div>
+    <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
+        <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
+        <div class="menuitems"><a href="Signup.html">Signup User</a></div>
         <div class="menuitems"><a href="login.html">Logout</a></div>
     </div>
 
+    <!--creates a display for the user to see task information-->
     <div class="box">
         <div class="createTaskForm">
             <h1>Search tasks</h1>
@@ -32,7 +52,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- PHP to create table filled with data from database --> 
+                    <!-- this is php code for the search barm it checks that if the task name the user has searched exists in the database it is displayed dynamically on the screen  --> 
                     <?php
                     include("connect.php");
                     if(isset($_POST["submit"])){
@@ -53,7 +73,7 @@
                                     </tr>";
                             }
                         } else {
-                            echo "Error: " . mysqli_error($conn);
+                            echo "Error: " . mysqli_error($conn); //error handling
                         }
                     }
                     ?>

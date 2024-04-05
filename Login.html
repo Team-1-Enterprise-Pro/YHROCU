@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <!--Title of the webpage-->
+    <title>YHROCU</title>
+    <!--Linking the style sheet-->
+    <link rel="stylesheet" href="style.css">
+    <!--link to fonts-->
+    <script src="https://kit.fontawesome.com/6f1f6384e6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="box">
+        <div class="form">
+
+            <div class="button-box">
+                <div id="btn" class="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()"><b>Log In</b></button>
+                <button type="button" class="toggle-btn" onclick="signup()"><b>Sign up</b></button>
+            </div>
+
+            <img src="Images/Logo.png" alt="Logo" class="logo">
+            <!--creating a login form so user can submit the login details, these will be checked against using POST method-->
+            <!--the login.php is where the details will be checked against the database-->
+            <form id="login" class="input-box" name="form" action="Login.php" method="POST">
+
+                <div class="input-container">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input name="staffNumber" type="text" class="input-field" placeholder="Staff Number" required>
+                </div>
+                <div class="input-container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input name="password" type="text" class="input-field" placeholder="Password" required>
+                </div>
+                <button type="submit" class="enter-btn" name="submit"><b>Log In</b></button>
+            </form>
+
+            <!--creating a sign form so user can sign up, provided all fields are filled in these are submitted to the database using POST method-->
+            <!--the signup.php is where the details will be added to the database-->
+            <form id="signup" class="input-box" name="form1" action="Signup.php" method="POST">
+
+                <div>
+                    <p>Ask an admin to sign you up</p>
+                </div>
+                
+
+            </form>
+        </div>
+    </div>
+
+    <!--toggle button between login and signup-->
+    <script src="login.js"></script>
+
+</body>
+
+</html>
