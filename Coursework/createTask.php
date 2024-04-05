@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $taskDescription = $_POST["taskDescription"];
     $taskDate = $_POST["taskDate"];
     $taskViewers = $_POST["taskViewers"];
+    $taskCompleted = $_POST["taskCompleted"];
 
     // making a connection to the database
     $servername = "localhost";
@@ -36,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $checkIfExists = mysqli_query($conn, $sql3);
 
     if (mysqli_num_rows($checkIfExists) == 0) {
-        // if it doednt exist then the task gets inserted into the table
-        $insertToTable = "INSERT INTO taskList (taskName, taskDescription, taskDate, whoCanView) VALUES ('$taskName', '$taskDescription', '$taskDate', '$taskViewers')";
+        // if it doesnt exist then the task gets inserted into the table
+        $insertToTable = "INSERT INTO taskList (taskName, taskDescription, taskDate, whoCanView, taskComplete) VALUES ('$taskName', '$taskDescription', '$taskDate', '$taskViewers', '$taskCompleted')";
 
         if (mysqli_query($conn, $insertToTable)) {
             echo '<script>'; //javascript for popups
@@ -50,7 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error adding task: " . mysqli_error($conn);
         }
     } else {
-        echo ""; //task already exists
+        echo '<script>
+                     alert("Task with that name already exists");
+					 window.location.href = "createTask.php"; // Redirect to signup page
+                  </script>';
     }
 
 
@@ -74,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="navbar">
         <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
+        <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
         <div class="menuitems"><a href="Signup.html">Signup User</a></div>
         <div class="menuitems"><a href="login.html">Logout</a></div>
@@ -93,7 +98,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Due date for task -->
             <input type="date" name="taskDate" placeholder="Task Due Date" class="input-field">
             <!-- Who can view the task -->
-            <input type="text" name="taskViewers" placeholder="Who can view task? Enter staff number or 'Everyone'" class="input-field"><div><div>
+            <input type="text" name="taskViewers" placeholder="Who can view task? Enter staff number or 'Everyone'" class="input-field">
+            <!-- Is the task complete -->
+            <input type="text" name="taskCompleted" placeholder="Is the task complete? Enter Y or N" class="input-field">
+            <div><div>
             <button name="createTask" class="enter-btn">Create Task</button>
       
         </form>

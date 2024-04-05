@@ -12,6 +12,48 @@ if(!isset($_SESSION["staffNumber"])) {
 // Include database connection
 include("connect.php");
 
+//this block of code allows the admin user to delete a task, when the task is deleted it is no longer displayed on the screen or in the database
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
+    $taskName = $_POST["taskName"];
+    $deleteFromTable = "DELETE FROM tasklist WHERE taskName = '$taskName'";
+    if ($conn->query($deleteFromTable) === TRUE) {
+        echo "";
+    } else {
+        echo "Error deleting task: " . $conn->error; //error handling
+    }
+
+   
+    //this block of code allows the admin user to update the due date for the task, it gets updated on the screen and also in the database
+} if (isset($_POST['updateTaskDate'])) {
+        $taskName = $_POST['taskName'];
+        $newTaskDate = $_POST['newTaskDate'];
+    
+        // updating in the database
+        $sql = "UPDATE tasklist SET taskDate='$newTaskDate' WHERE taskName='$taskName'";
+        if ($conn->query($sql) === TRUE) {
+            echo "";
+        } else {
+            echo "Error updating task date: " . $conn->error; //error handling
+        }
+    }
+    
+if(isset($_POST["toggleTaskComplete"])) {
+    $taskName = $_POST["taskName"];
+    $taskCompleted = $_POST["taskCompleted"];
+    
+    // Toggle the task completion status
+    $newTaskCompleted = $taskCompleted == 'Y' ? 'N' : 'Y';
+    
+    // Update the task completion status in the database
+    $updateSql = "UPDATE tasklist SET taskComplete = '$newTaskCompleted' WHERE taskName = '$taskName'";
+    if ($conn->query($updateSql) === TRUE) {
+        // Task completion status updated successfully
+    } else {
+        // Error updating task completion status
+    }
+}
+
+
 // Retrieve logged-in user's staff number
 $staffNumber = $_SESSION["staffNumber"];
 ?>
@@ -92,7 +134,7 @@ if ($result->num_rows > 0) {
     echo "<div class='box'>";
     echo "<br><br><br>";
     echo "<table class='createTaskForm'>";
-    echo "<th class='headingAllTasks' colspan='4'><br>All Tasks<th>";
+    echo "<th class='headingAllTasks' colspan='4'><br>My Tasks<th>";
 
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
@@ -100,6 +142,7 @@ if ($result->num_rows > 0) {
         echo "<td>Task Description: " . $row["taskDescription"] . "</td>";
         echo "<td>Task Date: " . $row["taskDate"] . "</td>";
         echo "<td>Task View: " . $row["whoCanView"] . "</td>";
+        echo "<td>Task Completed: " . $row["taskComplete"] . "</td>";
         echo "<td>";
         echo "<form method='POST' action='' class='userform' onsubmit='return confirmDelete()'>";
         echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
@@ -108,13 +151,14 @@ if ($result->num_rows > 0) {
         echo "</td>";
         echo "<td>";
         echo "<button onclick='openUpdatesList(\"" . $row["taskName"] . "\")'>View Updates</button>";
-        echo "<button onclick='taskCompleted(this)' name='completeTask'>Complete</button>";
         echo "</td>";
         echo "<td>";
         echo "<form method='POST' action='' class='userform' onsubmit='return confirmUpdate()'>";
         echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
         echo "<input type='date' name='newTaskDate' placeholder='New Task Date'>";
         echo "<input type='submit' name='updateTaskDate' value='change due date'>";
+        echo "<input type='hidden' name='taskCompleted' value='" . $row["taskComplete"] . "'>";
+        echo "<button type='submit' name='toggleTaskComplete'>Complete Task</button>";
         echo "</form>";
         echo "</td>";
         echo "</tr>";
@@ -150,15 +194,7 @@ if ($result->num_rows > 0) {
             document.getElementById("updatePopup").style.display = "none";
         }
 
-    //this is the function called when the supervisor marks the task as completed, it changes the respective table row to green
-        function taskCompleted(button) {
-            var row = button.closest('tr');
-        row.style.backgroundColor = "green";}
-        
-        //confirmation
-        function confirmUpdate() {
-    return confirm("Are you sure you want to update the task date?");
-}
+  
 
     </script>
 </body>

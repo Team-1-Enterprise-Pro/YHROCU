@@ -47,6 +47,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
             echo "Error updating task date: " . $conn->error; //error handling
         }
     }
+
+    if(isset($_POST["toggleTaskComplete"])) {
+        $taskName = $_POST["taskName"];
+        $taskCompleted = $_POST["taskCompleted"];
+        
+        // Toggle the task completion status
+        $newTaskCompleted = $taskCompleted == 'Y' ? 'N' : 'Y';
+        
+        // Update the task completion status in the database
+        $updateSql = "UPDATE tasklist SET taskComplete = '$newTaskCompleted' WHERE taskName = '$taskName'";
+        if ($conn->query($updateSql) === TRUE) {
+            // Task completion status updated successfully
+        } else {
+            // Error updating task completion status
+        }
+    }
 ?>
 
 <html>
@@ -129,6 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
             echo "<td>Task Description: " . $row["taskDescription"] . "</td>";
             echo "<td>Task Date: " . $row["taskDate"] . "</td>";
             echo "<td>Task View: " . $row["whoCanView"] . "</td>";
+            echo "<td>Task Completed: " . $row["taskComplete"] . "</td>";
             echo "<td>";
             echo "<form method='POST' action='' class='userform' onsubmit='return confirmDelete()'>"; //this is a JS function for the delete task button
             echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
@@ -137,13 +154,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
             echo "</td>";
             echo "<td>";
             echo "<button onclick='openUpdatesList(\"" . $row["taskName"] . "\")'>View Updates</button>"; //this is a JS function to open a popup so the user can add updates about the tasks
-            echo "<button onclick='taskCompleted(this)' name='completeTask'>Complete</button>"; //this button is used by the supervisor to mark the task as completed
             echo "</td>";
             echo "<td>";
             echo "<form method='POST' action='' class='userform' onsubmit='return confirmUpdate()'>"; //confirmation to add an update
             echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
             echo "<input type='date' name='newTaskDate' placeholder='New Task Date'>"; //button which allows the task due date to be changed by admins
             echo "<input type='submit' name='updateTaskDate' value='change due date'>";
+            echo "<input type='hidden' name='taskCompleted' value='" . $row["taskComplete"] . "'>";
+            echo "<button type='submit' name='toggleTaskComplete'>Complete Task</button>";
             echo "</form>";
             echo "</td>";
             echo "</tr>";
@@ -182,15 +200,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
             document.getElementById("updatePopup").style.display = "none";
         }
 
-    //this is the function called when the supervisor marks the task as completed, it changes the respective table row to green
-        function taskCompleted(button) {
-            var row = button.closest('tr');
-        row.style.backgroundColor = "green";}
-        
-        //confirmation
-        function confirmUpdate() {
-    return confirm("Are you sure you want to update the task date?");
-}
 
     </script>
 </body>
