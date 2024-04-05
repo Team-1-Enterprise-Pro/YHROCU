@@ -17,14 +17,17 @@
 		
 		if($result){
 			// Redirect to dashboard if insertion was successful
-			header("Location: Login.html");
+			echo '<script>
+                     alert("User account NOT created, please retry");
+					 window.location.href = "signup.html"; // Redirect to signup page
+                  </script>';
 			exit();
 		}
 		else{
 			// Redirect to login page with alert if insertion failed
 			echo '<script>
-                     window.location.href = "Login.html";
-                     alert("Login failed. Invalid username or password!!");
+                     confirm("User account created successfully");
+					 window.location.href = "signup.html"; // Redirect to signup page
                   </script>';
 		}
 	}

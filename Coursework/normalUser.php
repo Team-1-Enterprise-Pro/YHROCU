@@ -1,54 +1,20 @@
 <?php
-//this clears the cache so when the user logs out they cant click the back to access content again
-header("Cache-Control: no-cache, no-store, must-revalidate"); 
-header("Pragma: no-cache"); 
-header("Expires: 0"); 
+// Start session
 session_start();
 
 // Check if user is not logged in
-if(!isset($_SESSION["user_id"])) {
-// User is not logged in, redirect to login page
+if(!isset($_SESSION["staffNumber"])) {
+    // User is not logged in, redirect to login page
     header("Location: login.html");
-    exit();}
-    
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "enterpriseCW";
-
-//establishing a connection to the database using the credentials above
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    exit();
 }
 
-//this block of code allows the admin user to delete a task, when the task is deleted it is no longer displayed on the screen or in the database
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
-    $taskName = $_POST["taskName"];
-    $deleteFromTable = "DELETE FROM tasklist WHERE taskName = '$taskName'";
-    if ($conn->query($deleteFromTable) === TRUE) {
-        echo "";
-    } else {
-        echo "Error deleting task: " . $conn->error; //error handling
-    }
+// Include database connection
+include("connect.php");
 
-   
-    //this block of code allows the admin user to update the due date for the task, it gets updated on the screen and also in the database
-} if (isset($_POST['updateTaskDate'])) {
-        $taskName = $_POST['taskName'];
-        $newTaskDate = $_POST['newTaskDate'];
-    
-        // updating in the database
-        $sql = "UPDATE tasklist SET taskDate='$newTaskDate' WHERE taskName='$taskName'";
-        if ($conn->query($sql) === TRUE) {
-            echo "";
-        } else {
-            echo "Error updating task date: " . $conn->error; //error handling
-        }
-    }
+// Retrieve logged-in user's staff number
+$staffNumber = $_SESSION["staffNumber"];
 ?>
-
 <html>
 
 <head>
@@ -113,53 +79,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
     </div>
 
     <?php
-    $sql = "SELECT * FROM tasklist";
-    $result = $conn->query($sql);
 
-    //this is HTML code which is printed out onto the screen, this is creating the table to see all of the task information which is in the database
-    if ($result->num_rows > 0) { //displays what is in the database aslong as rows exist (not 0)
-        echo "<div class='box'>";
-        echo "<br><br><br>";
-        echo "<table class='createTaskForm'>";
-        echo "<th class='headingAllTasks' colspan='4'><br>All Tasks<th>";
 
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>Task Name: " . $row["taskName"] . "</td>"; //taskname
-            echo "<td>Task Description: " . $row["taskDescription"] . "</td>";
-            echo "<td>Task Date: " . $row["taskDate"] . "</td>";
-            echo "<td>Task View: " . $row["whoCanView"] . "</td>";
-            echo "<td>";
-            echo "<form method='POST' action='' class='userform' onsubmit='return confirmDelete()'>"; //this is a JS function for the delete task button
-            echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
-            echo "<input type='submit' name='deleteTask' value='Delete'>";
-            echo "</form>";
-            echo "</td>";
-            echo "<td>";
-            echo "<button onclick='openUpdatesList(\"" . $row["taskName"] . "\")'>View Updates</button>"; //this is a JS function to open a popup so the user can add updates about the tasks
-            echo "<button onclick='taskCompleted(this)' name='completeTask'>Complete</button>"; //this button is used by the supervisor to mark the task as completed
-            echo "</td>";
-            echo "<td>";
-            echo "<form method='POST' action='' class='userform' onsubmit='return confirmUpdate()'>"; //confirmation to add an update
-            echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
-            echo "<input type='date' name='newTaskDate' placeholder='New Task Date'>"; //button which allows the task due date to be changed by admins
-            echo "<input type='submit' name='updateTaskDate' value='change due date'>";
-            echo "</form>";
-            echo "</td>";
-            echo "</tr>";
 
-        
 
-        }
+// SQL query to fetch tasks for the logged-in user's staff number
+$sql = "SELECT * FROM tasklist WHERE whoCanView = '$staffNumber' OR whoCanView = 'everyone'";
+$result = $conn->query($sql);
 
-        echo "</table>";
-        echo "</div>";
-    } else {
-        echo "No tasks found.";
+// Display tasks
+if ($result->num_rows > 0) {
+    echo "<div class='box'>";
+    echo "<br><br><br>";
+    echo "<table class='createTaskForm'>";
+    echo "<th class='headingAllTasks' colspan='4'><br>All Tasks<th>";
+
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>Task Name: " . $row["taskName"] . "</td>";
+        echo "<td>Task Description: " . $row["taskDescription"] . "</td>";
+        echo "<td>Task Date: " . $row["taskDate"] . "</td>";
+        echo "<td>Task View: " . $row["whoCanView"] . "</td>";
+        echo "<td>";
+        echo "<form method='POST' action='' class='userform' onsubmit='return confirmDelete()'>";
+        echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
+        echo "<input type='submit' name='deleteTask' value='Delete'>";
+        echo "</form>";
+        echo "</td>";
+        echo "<td>";
+        echo "<button onclick='openUpdatesList(\"" . $row["taskName"] . "\")'>View Updates</button>";
+        echo "<button onclick='taskCompleted(this)' name='completeTask'>Complete</button>";
+        echo "</td>";
+        echo "<td>";
+        echo "<form method='POST' action='' class='userform' onsubmit='return confirmUpdate()'>";
+        echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
+        echo "<input type='date' name='newTaskDate' placeholder='New Task Date'>";
+        echo "<input type='submit' name='updateTaskDate' value='change due date'>";
+        echo "</form>";
+        echo "</td>";
+        echo "</tr>";
     }
-    ?>
 
-    <script>
+    echo "</table>";
+    echo "</div>";
+} else {
+    echo "No tasks found.";
+}
+
+?>
+<script>
         //this function confirms deletion of a task, 1234 is the confirmation which must be entered by the user in the alert that pops up
         function confirmDelete() { 
             var adminPIN = prompt("Enter admin PIN:");

@@ -75,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
+        <div class="menuitems"><a href="Signup.html">Signup User</a></div>
         <div class="menuitems"><a href="login.html">Logout</a></div>
     </div>
 
@@ -92,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Due date for task -->
             <input type="date" name="taskDate" placeholder="Task Due Date" class="input-field">
             <!-- Who can view the task -->
-            <input type="text" name="taskViewers" placeholder="Who can view the task?" class="input-field"><div><div>
+            <input type="text" name="taskViewers" placeholder="Who can view task? Enter staff number or 'Everyone'" class="input-field"><div><div>
             <button name="createTask" class="enter-btn">Create Task</button>
       
         </form>

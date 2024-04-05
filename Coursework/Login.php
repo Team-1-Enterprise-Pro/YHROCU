@@ -3,7 +3,7 @@
 session_start();
 
 // Check if user is logged in
-if(isset($_SESSION["user_id"])) {
+if(isset($_SESSION["staffNumber"])) {
     // User is already logged in, redirect to tasks.php or any other page
     header("Location: tasks.php");
     exit();
@@ -25,7 +25,7 @@ if(isset($_POST["submit"])) {
 
     if($count == 1) {
         // Login successful, set user session
-        $_SESSION["user_id"] = $row["staffNumber"];
+        $_SESSION["staffNumber"] = $row["staffNumber"];
         
         // Redirect to tasks.php or any other page
         header("Location: tasks.php");

@@ -50,6 +50,7 @@
     border: 0;
     outline: none;
     position: relative;
+    align-content: center;
 }
 
 .btn {
