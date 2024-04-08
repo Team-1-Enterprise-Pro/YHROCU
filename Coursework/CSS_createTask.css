@@ -1,0 +1,118 @@
+/*sets page margins to 0 to ensure no white gaps and sets a universal/default font style*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+
+/* This creates a box which serves as a background for all of the screens */
+.box {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: #191970;
+}
+
+/* CSS for the navbar at the top, this sets the background colour, esnures it stays at the top of the screen during scrolling, makes sure theres no gap and also aligns all the text in the center */
+
+.navbar {
+    background-color: #48D1CC;
+    position: sticky;
+    top: 0;
+    text-align: center;
+    z-index: 1;
+}
+
+.menuitems {
+    display: inline-block;
+    color: white;
+    padding: 1em 5%;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: 'Gill Sans';
+}
+
+/* This ensures that if a menu item is hovered upon, it changes colour to reflect the hover */
+
+.menuitems a:hover {
+    background-color: rgb(142, 165, 187);
+}
+
+
+/* CSS for the create and view task pages, mainly just ensures it is somewhat presentable on the screen */
+
+.createTaskForm {
+    width: 380px;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background: #fff;
+    padding: 50px; 
+    overflow: hidden;
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+}
+
+.heading {
+    text-align: center;
+    margin-top: 0;
+}
+
+.input-field {
+    width: calc(100% - 20px); 
+    margin-bottom: 10px;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.enter-btn {
+    width: calc(100% - 20px);
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: #1eff00;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+
+
+/* Popup Styles */
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* CSS to close the popup box for task updates */
+
+.close {
+    float: right;
+    cursor: pointer;
+}
+
+
