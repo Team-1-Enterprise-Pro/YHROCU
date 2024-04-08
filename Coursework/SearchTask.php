@@ -18,7 +18,7 @@ if(!isset($_SESSION["user_id"])) {
     <!--Title of the webpage-->
     <title>YHROCU</title>
     <!--Linking the style sheet-->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CSS_SearchTask.css">
     
 </head>
 <body>
