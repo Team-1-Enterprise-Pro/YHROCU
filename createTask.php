@@ -7,7 +7,7 @@ session_start();
 
 // checks if user is not logged in
 if(!isset($_SESSION["user_id"])) {
-    // if the uer is not logged in, it redirects them to the login page
+    //if the uer is not logged in, it redirects them to the login page
     header("Location: login.html");
     exit();}
 
@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $taskDescription = $_POST["taskDescription"];
     $taskDate = $_POST["taskDate"];
     $taskViewers = $_POST["taskViewers"];
+    $taskCompleted = $_POST["taskCompleted"];
 
     // making a connection to the database
     $servername = "localhost";
@@ -36,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $checkIfExists = mysqli_query($conn, $sql3);
 
     if (mysqli_num_rows($checkIfExists) == 0) {
-        // if it doednt exist then the task gets inserted into the table
-        $insertToTable = "INSERT INTO taskList (taskName, taskDescription, taskDate, whoCanView) VALUES ('$taskName', '$taskDescription', '$taskDate', '$taskViewers')";
+        // if it doesnt exist then the task gets inserted into the table
+        $insertToTable = "INSERT INTO taskList (taskName, taskDescription, taskDate, whoCanView, taskComplete) VALUES ('$taskName', '$taskDescription', '$taskDate', '$taskViewers', '$taskCompleted')";
 
         if (mysqli_query($conn, $insertToTable)) {
             echo '<script>'; //javascript for popups
@@ -50,7 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error adding task: " . mysqli_error($conn);
         }
     } else {
-        echo ""; //task already exists
+        echo '<script>
+                     alert("Task with that name already exists");
+					 window.location.href = "createTask.php"; // Redirect to signup page
+                  </script>';
     }
 
 
@@ -65,15 +69,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!--Title of the webpage-->
     <title>YHROCU</title>
     <!--Linking the style sheet-->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CSS_createTask.css">
     
 </head>
 
 <body>
     
-        <div class="navbar">
+    <div class="navbar">
         <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
+        <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
         <div class="menuitems"><a href="Signup.html">Signup User</a></div>
         <div class="menuitems"><a href="login.html">Logout</a></div>
@@ -81,24 +86,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- this is the html form to create a task -->
     <div class="box">
-    <div class="createTaskForm">
-        <form method="POST" action="createTask.php" class="input-box">
-            <div class="taskFormContentWrapper">
-            <div class="taskFormContent">
-            <h1>Create Task</h1>
-            <!-- Name of task -->
-            <input type="text" name="taskName" placeholder="Task Name" class="input-field">
-            <!-- Description of task -->
-            <textarea name="taskDescription" rows="5" cols="30" placeholder="Task description" class="input-field"></textarea>
-            <!-- Due date for task -->
-            <input type="date" name="taskDate" placeholder="Task Due Date" class="input-field">
-            <!-- Who can view the task -->
-            <input type="text" name="taskViewers" placeholder="Who can view task? Enter staff number or 'Everyone'" class="input-field"><div><div>
-            <button name="createTask" class="enter-btn">Create Task</button>
-      
-        </form>
+        <div class="createTaskForm">
+            <h1 class="heading">Create Task</h1>
+            <form method="POST" action="createTask.php" class="input-box">
+                <!-- Name of task -->
+                <input type="text" name="taskName" placeholder="Task Name" class="input-field">
+                <!-- Description of task -->
+                <textarea name="taskDescription" rows="5" cols="30" placeholder="Task description" class="input-field"></textarea>
+                <!-- Due date for task -->
+                <input type="date" name="taskDate" placeholder="Task Due Date" class="input-field">
+                <!-- Who can view the task -->
+                <input type="text" name="taskViewers" placeholder="Who can view task? Enter staff number or 'Everyone'" class="input-field">
+                <!-- Is the task complete -->
+                <input type="text" name="taskCompleted" placeholder="Is the task complete? Enter Y or N" class="input-field">
+                <button name="createTask" class="enter-btn">Create Task</button>
+            </form>
+        </div>
     </div>
-   </div>
 
 </body>
 

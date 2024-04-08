@@ -18,7 +18,7 @@ if(!isset($_SESSION["user_id"])) {
     <!--Title of the webpage-->
     <title>YHROCU</title>
     <!--Linking the style sheet-->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CSS_SearchTask.css">
     
 </head>
 <body>
@@ -26,6 +26,7 @@ if(!isset($_SESSION["user_id"])) {
     <div class="navbar">
     <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
+        <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
         <div class="menuitems"><a href="Signup.html">Signup User</a></div>
         <div class="menuitems"><a href="login.html">Logout</a></div>
