@@ -5,12 +5,40 @@
     font-family: sans-serif;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
 /* This creates a box which serves as a background for all of the screens */
 .box {
     height: 100%;
     width: 100%;
     position: absolute;
     background: #191970;
+    position: relative;
+}
+
+.task-container {
+    height: 500px; 
+    overflow-y: auto;
+    position: absolute;
+    top: 100px; 
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0px;
+    border-radius: 0px;
+    background-color: #191970;
+    width: calc(100% - 20px); 
+}
+
+.createTaskForm {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0; 
+    background: #fff;
+    position: absolute; 
+    top: 0; 
 }
 
 /* CSS for the navbar at the top, this sets the background colour, esnures it stays at the top of the screen during scrolling, makes sure theres no gap and also aligns all the text in the center */
@@ -95,6 +123,18 @@ button {
     background-color: #aaaaaa; 
 }
 
+
+.task-container {
+    width: 80%;
+    aspect-ratio: 3/1;
+    padding: 100px 0;
+    margin: 100px;
+    border: solid black 2px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
 /* Task date button styles */
 .date-button {
     padding: 8px 12px;
@@ -157,20 +197,6 @@ table.createTaskForm tr:first-child {
 }
 
 
-/* Adjusting styles for the search form */
-.createTaskForm {
-    width: 380px;
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    background: #fff;
-    padding: 50px; 
-    overflow: hidden;
-    border-radius: 10px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-}
-
 .input-container {
     margin-bottom: 20px;
 }
@@ -211,6 +237,7 @@ table.createTaskForm tr:first-child {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+
 
 .popup-content {
     background-color: #fefefe;

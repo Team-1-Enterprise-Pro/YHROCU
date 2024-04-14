@@ -35,24 +35,6 @@
 
 /* CSS for buttons on login and signup pages */
 
-.button-box {
-    width: 220px;
-    margin: 35px auto;
-    position: relative;
-    box-shadow: 0 0 20px #B0E0E6;
-    border-radius: 30px;
-}
-
-.toggle-btn {
-    padding: 10px 30px;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    outline: none;
-    position: relative;
-    align-content: center;
-}
-
 .btn {
     top: 0;
     left: 0;
@@ -69,6 +51,20 @@
     position: absolute;
     width: 280px;
     transition: .5s
+}
+
+.login-header {
+    text-align: center;
+    margin-top: 10px; 
+    padding-top: 20px;
+    font-size: 40px; 
+}
+
+.signup-header {
+    text-align: center;
+    margin-top: 10px; 
+    padding-top: 20px;
+    font-size: 40px; 
 }
 
 
@@ -130,7 +126,7 @@
 }
 
 #signup {
-    left: 450px;
+    left: 50px;
 }
 
 

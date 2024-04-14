@@ -137,6 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         if ($result->num_rows > 0) {
             echo "<div class='box'>";
             echo "<br><br><br>";
+            echo "<div class='task-container'>";
             echo "<table class='createTaskForm'>";
             echo "<tr><th class='headingAllTasks' colspan='10'>All Tasks</th></tr>";
             echo "<tr><th>Task Name</th><th>Task Description</th><th>Task Date</th><th>Task View</th><th>Task Completed</th><th>Delete</th><th>View Updates</th><th>Change Due Date</th><th>Task complete?</th></tr>";
@@ -172,6 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
             }
 
             echo "</table>";
+            echo "</div>";
             echo "</div>";
         } else {
             echo "No tasks found.";
