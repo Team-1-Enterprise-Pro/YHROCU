@@ -1,11 +1,13 @@
 <?php
+// Start session
 session_start();
 
-// Unset all of the session variables
-$_SESSION = array();
+// Clear session variables
+unset($_SESSION["staffNumber"]);
 
 // Destroy the session
 session_destroy();
+
 
 // Redirect to login page after logout
 header("Location: login.html");

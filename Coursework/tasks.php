@@ -1,12 +1,14 @@
 <?php
+
 //this clears the cache so when the user logs out they cant click the back to access content again
 header("Cache-Control: no-cache, no-store, must-revalidate"); 
 header("Pragma: no-cache"); 
 header("Expires: 0"); 
+
 session_start();
 
 // Check if user is not logged in
-if(!isset($_SESSION["user_id"])) {
+if(!isset($_SESSION["staffNumber"])) {
 // User is not logged in, redirect to login page
     header("Location: login.html");
     exit();}
@@ -82,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
         <div class="menuitems"><a href="Signup.html">Signup User</a></div>
-        <div class="menuitems"><a href="login.html">Logout</a></div>
+        <div class="menuitems"><a href="logout.php">Logout</a></div>
     </div>
 
      <!--this block of code allows the user to add updates about the task, these updates get saved to the database-->

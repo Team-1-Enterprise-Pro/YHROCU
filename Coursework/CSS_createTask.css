@@ -35,8 +35,8 @@
 
 /* This ensures that if a menu item is hovered upon, it changes colour to reflect the hover */
 
-.menuitems a:hover {
-    background-color: rgb(142, 165, 187);
+.navbar a:hover {
+    background-color: rgb(255, 255, 255);
 }
 
 
@@ -79,45 +79,11 @@
     cursor: pointer;
     display: block;
     margin: auto;
-    background: #1eff00;
+    background: #4BB543;
     border: 0;
     outline: none;
     border-radius: 30px;
-    color: rgb(3, 2, 2); 
+    color: rgb(255, 255, 255); 
     font-size: 18px; 
 }
-
-
-/* Popup Styles */
-
-.popup {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 400px;
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.popup-content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* CSS to close the popup box for task updates */
-
-.close {
-    float: right;
-    cursor: pointer;
-}
-
 

@@ -7,7 +7,7 @@ header("Expires: 0");
 session_start();
 
 // Check if user is not logged in
-if(!isset($_SESSION["user_id"])) {
+if(!isset($_SESSION["staffNumber"])) {
     // User is not logged in, redirect to login page
     header("Location: login.html");
     exit();}?>
@@ -29,7 +29,7 @@ if(!isset($_SESSION["user_id"])) {
         <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
         <div class="menuitems"><a href="Signup.html">Signup User</a></div>
-        <div class="menuitems"><a href="login.html">Logout</a></div>
+        <div class="menuitems"><a href="logout.php">Logout</a></div>
     </div>
 
     <!--creates a display for the user to see task information-->

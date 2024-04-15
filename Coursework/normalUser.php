@@ -2,12 +2,14 @@
 // Start session
 session_start();
 
+
 // Check if user is not logged in
 if(!isset($_SESSION["staffNumber"])) {
     // User is not logged in, redirect to login page
     header("Location: login.html");
     exit();
 }
+
 
 // Include database connection
 include("connect.php");
@@ -54,8 +56,6 @@ if(isset($_POST["toggleTaskComplete"])) {
 }
 
 
-// Retrieve logged-in user's staff number
-$staffNumber = $_SESSION["staffNumber"];
 ?>
 <html>
 
@@ -64,6 +64,7 @@ $staffNumber = $_SESSION["staffNumber"];
     <title>YHROCU</title>
     <!--Linking the style sheet-->
     <link rel="stylesheet" href="CSS_tasks.css">
+    
 </head>
 
 <body>
@@ -74,7 +75,7 @@ $staffNumber = $_SESSION["staffNumber"];
         <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
         <div class="menuitems"><a href="Signup.html">Signup User</a></div>
-        <div class="menuitems"><a href="login.html">Logout</a></div>
+        <div class="menuitems"><a href="logout.php">Logout</a></div>
     </div>
 
      <!--this block of code allows the user to add updates about the task, these updates get saved to the database-->
@@ -122,7 +123,7 @@ $staffNumber = $_SESSION["staffNumber"];
 
     <?php
         // SQL query to fetch tasks for the logged-in user's staff number
-        $sql = "SELECT * FROM tasklist WHERE whoCanView = '$staffNumber' OR whoCanView = 'everyone'";
+        $sql = "SELECT * FROM tasklist WHERE whoCanView = '{$_SESSION["staffNumber"]}' OR whoCanView = 'everyone'";
         $result = $conn->query($sql);
 
         // Display tasks
@@ -193,10 +194,11 @@ $staffNumber = $_SESSION["staffNumber"];
         function closeUpdatePopup() {
             document.getElementById("updatePopup").style.display = "none";
         }
-
-  
+        
 
     </script>
 </body>
+
+
 
 </html>

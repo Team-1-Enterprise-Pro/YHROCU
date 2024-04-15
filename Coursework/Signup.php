@@ -1,4 +1,5 @@
 <?php
+session_start();
 	include("connect.php");//establishing a connection to the database
 
 	//getting all of the signup information from the user to add to the database
@@ -18,7 +19,7 @@
 		if($result){
 			// Redirect to dashboard if insertion was successful
 			echo '<script>
-                     alert("User account NOT created, please retry");
+                     confirm("User account created");
 					 window.location.href = "signup.html"; // Redirect to signup page
                   </script>';
 			exit();
@@ -26,7 +27,7 @@
 		else{
 			// Redirect to login page with alert if insertion failed
 			echo '<script>
-                     confirm("User account created successfully");
+                     alert("User account NOT created, please retry");
 					 window.location.href = "signup.html"; // Redirect to signup page
                   </script>';
 		}

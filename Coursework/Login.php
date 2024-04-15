@@ -1,4 +1,7 @@
 <?php
+// Include database connection
+include("connect.php");
+
 // Start session
 session_start();
 
@@ -8,9 +11,6 @@ if(isset($_SESSION["staffNumber"])) {
     header("Location: tasks.php");
     exit();
 }
-
-// Include database connection
-include("connect.php");
 
 // Handle login form submission
 if(isset($_POST["submit"])) {
@@ -37,3 +37,4 @@ if(isset($_POST["submit"])) {
     }
 }
 ?>
+

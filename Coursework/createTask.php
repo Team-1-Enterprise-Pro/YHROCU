@@ -6,7 +6,7 @@ header("Expires: 0");
 session_start();
 
 // checks if user is not logged in
-if(!isset($_SESSION["user_id"])) {
+if(!isset($_SESSION["staffNumber"])) {
     //if the uer is not logged in, it redirects them to the login page
     header("Location: login.html");
     exit();}
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
         <div class="menuitems"><a href="Signup.html">Signup User</a></div>
-        <div class="menuitems"><a href="login.html">Logout</a></div>
+        <div class="menuitems"><a href="logout.php">Logout</a></div>
     </div>
 
     <!-- this is the html form to create a task -->

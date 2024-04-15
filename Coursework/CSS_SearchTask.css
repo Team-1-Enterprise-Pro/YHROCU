@@ -40,20 +40,6 @@
 }
 
 
-/* CSS for the create and view task pages, mainly just ensures it is somewhat presentable on the screen */
-
-.createTaskForm {
-    width: 380px;
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    background: #fff;
-    padding: 50px; 
-    overflow: hidden;
-    border-radius: 10px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-}
 
 .heading {
     text-align: center;
@@ -162,7 +148,7 @@ th, td {
     width: 100%;
     padding: 10px;
     cursor: pointer;
-    background: #1eff00;
+    background: #4BB543;
     border: none;
     outline: none;
     border-radius: 5px;
@@ -170,5 +156,5 @@ th, td {
 }
 
 .enter-btn:hover {
-    background: #16ab00; 
+    background: #8fec80; 
 }
