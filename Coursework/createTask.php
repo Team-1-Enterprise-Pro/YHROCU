@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
         <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
-        <div class="menuitems"><a href="Signup.html">Signup User</a></div>
+        <div class="menuitems"><a href="Signup.html" onclick="verifyPINAndRedirect()">Signup User</a></div>
         <div class="menuitems"><a href="logout.php">Logout</a></div>
     </div>
 
@@ -103,7 +103,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
+<script>
+    function verifyPINAndRedirect() {
+    var enteredPIN = prompt("Enter Admin PIN to create new user:");
+    var correctPIN = "1234"; // Change this to your correct PIN
+    
+    if (enteredPIN === correctPIN) {
+        // Correct PIN, redirect to signup page
+        window.location.href = "Signup.html";
+    } else {
+        // Incorrect PIN, display an alert message
+        alert("Incorrect PIN. Access denied.");
+    }
+}
 
+</script>
 </body>
 
 </html>

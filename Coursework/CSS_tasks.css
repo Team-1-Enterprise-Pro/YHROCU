@@ -228,3 +228,13 @@ table.createTaskForm tr:first-child {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Styling for overdue task dates */
+.task-date.overdue {
+    color: red; /* Change text color to red for overdue tasks */
+    /* Add any other styling you want for overdue tasks */
+}
+
+.exportButton{
+    background-color: #888;
+}

@@ -35,25 +35,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         if ($conn->query($sql) === TRUE) {
             echo "";
         } else {
-            echo "Error updating task date: " . $conn->error; //error handling
+            //
         }
     }
     
-if(isset($_POST["toggleTaskComplete"])) {
-    $taskName = $_POST["taskName"];
-    $taskCompleted = $_POST["taskCompleted"];
-    
-    // Toggle the task completion status
-    $newTaskCompleted = $taskCompleted == 'Y' ? 'N' : 'Y';
-    
-    // Update the task completion status in the database
-    $updateSql = "UPDATE tasklist SET taskComplete = '$newTaskCompleted' WHERE taskName = '$taskName'";
-    if ($conn->query($updateSql) === TRUE) {
-        // Task completion status updated successfully
-    } else {
-        // Error updating task completion status
+    if(isset($_POST["toggleTaskComplete"])) {
+        // Prompt for PIN
+        $supervisorPIN = $_POST["supervisorPIN"];
+        if($supervisorPIN !== '1111') {
+            // Incorrect PIN
+            echo "<script>alert('Error updating task completion status');</script>";
+        } else {
+            // PIN is correct, proceed with toggling task completion status
+            $taskName = $_POST["taskName"];
+            $taskCompleted = $_POST["taskCompleted"];
+            
+            // Toggle the task completion status
+            $newTaskCompleted = $taskCompleted == 'Y' ? 'N' : 'Y';
+            
+            // Update the task completion status in the database
+            $updateSql = "UPDATE tasklist SET taskComplete = '$newTaskCompleted' WHERE taskName = '$taskName'";
+            if ($conn->query($updateSql) === TRUE) {
+                echo "<script>alert('Task completion status updated sucessfully');</script>";
+            } else {
+                //
+            }
+        }
     }
-}
 
 
 ?>
@@ -74,7 +82,7 @@ if(isset($_POST["toggleTaskComplete"])) {
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
         <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
         <div class="menuitems"><a href="SearchTask.php">Search Task</a></div>
-        <div class="menuitems"><a href="Signup.html">Signup User</a></div>
+        <div class="menuitems"><a href="Signup.html" onclick="verifyPINAndRedirect()">Signup User</a></div>
         <div class="menuitems"><a href="logout.php">Logout</a></div>
     </div>
 
@@ -123,7 +131,8 @@ if(isset($_POST["toggleTaskComplete"])) {
 
     <?php
         // SQL query to fetch tasks for the logged-in user's staff number
-        $sql = "SELECT * FROM tasklist WHERE whoCanView = '{$_SESSION["staffNumber"]}' OR whoCanView = 'everyone'";
+        $sql = "SELECT * FROM tasklist WHERE whoCanView = '{$_SESSION["staffNumber"]}' OR whoCanView = 'everyone' ORDER BY taskDate ASC";
+        
         $result = $conn->query($sql);
 
         // Display tasks
@@ -132,14 +141,17 @@ if(isset($_POST["toggleTaskComplete"])) {
             echo "<br><br><br>";
             echo "<div class='task-container'>";
             echo "<table class='createTaskForm'>";
-            echo "<tr><th class='headingAllTasks' colspan='10'>My Tasks</th></tr>"; // Header row
+            echo "<tr><th class='headingAllTasks' colspan='10'>My Tasks</th></tr>"; 
             echo "<tr><th>Task Name</th><th>Task Description</th><th>Task Date</th><th>Task View</th><th>Task Completed</th><th>Delete</th><th>View Updates</th><th>Change Due Date</th><th>Task complete?</th></tr>";
 
             while ($row = $result->fetch_assoc()) {
+                $taskDate = $row["taskDate"];
+                $overdueClass = ($taskDate < date('Y-m-d')) ? "overdue" : ""; // Check if the task date is in the past
+        
                 echo "<tr>";
                 echo "<td>" . $row["taskName"] . "</td>";
                 echo "<td>" . $row["taskDescription"] . "</td>";
-                echo "<td>" . $row["taskDate"] . "</td>";
+                echo "<td><span class='task-date $overdueClass'>" . $row["taskDate"] . "</span></td>"; // Add the overdue class
                 echo "<td>" . $row["whoCanView"] . "</td>";
                 echo "<td>" . $row["taskComplete"] . "</td>";
                 echo "<td>";
@@ -158,9 +170,13 @@ if(isset($_POST["toggleTaskComplete"])) {
                 echo "<input type='submit' name='updateTaskDate' class='date-button' value='Change Due Date'>";
                 echo "</td>";
                 echo "<td>";
+                echo "<form method='POST' action='' class='userform' onsubmit='return confirmToggleTaskComplete()'>";
+                echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
                 echo "<input type='hidden' name='taskCompleted' value='" . $row["taskComplete"] . "'>";
+                echo "<input type='password' name='supervisorPIN' placeholder='Supervisor PIN' required>";
                 echo "<button type='submit' name='toggleTaskComplete' class='complete-button'>Complete Task</button>";
                 echo "</form>";
+                echo "</td>";
                 echo "</td>";
                 echo "</tr>";
             }
@@ -195,6 +211,28 @@ if(isset($_POST["toggleTaskComplete"])) {
             document.getElementById("updatePopup").style.display = "none";
         }
         
+        function confirmToggleTaskComplete() {
+    var supervisorPIN = prompt("Enter supervisor PIN:");
+    if (supervisorPIN === '1111') {
+        return true;
+    } else {
+        alert("Incorrect supervisor PIN. Task completion status not updated.");
+        return false;
+    }
+}
+
+function verifyPINAndRedirect() {
+    var enteredPIN = prompt("Enter Admin PIN to create new user:");
+    var correctPIN = "1234"; // Change this to your correct PIN
+    
+    if (enteredPIN === correctPIN) {
+        // Correct PIN, redirect to signup page
+        window.location.href = "Signup.html";
+    } else {
+        // Incorrect PIN, display an alert message
+        alert("Incorrect PIN. Access denied.");
+    }
+}
 
     </script>
 </body>
