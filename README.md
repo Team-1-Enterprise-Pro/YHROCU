@@ -2,7 +2,11 @@ Project title: YHROCU
 
 Project description: YHROCU requires an enhanced workflow management system to streamline non-crime related activities within its department. The system aims to efficiently manage support tasks assigned to staff, facilitating both individual and collaborative work.
 
-How to run the project: To run the code, make sure the entire Coursework folder is placed into the htdocs folder for xampp, the files can then be run locally and viewed on google e.g., http://localhost/Coursework/login.html
+How to run the project:
+
+1. To run the code, make sure the entire Coursework folder is placed into the htdocs folder for xampp, the files can then be run locally and viewed on google e.g., http://localhost/Coursework/login.html
+2. Make sure to import the database tables using the file in the SQL folder
+3. To ensure the exporting tasks feature works make sure to download the TCPDF library and place it within the same directory where all the project files are
 
 Team members:
 17003493 - Sania Bibi (s.bibi60@bradford.ac.uk) 
@@ -12,5 +16,3 @@ Team members:
 21045121 - Oluwadamilare Falade (o.s.falade@bradford.ac.uk) 
 22036203 - Shafeeq Shuaib (s.shuaib@bradford.ac.uk) 
 
-
-![image](https://github.com/Team-1-Enterprise-Pro/YHROCU/assets/160640468/cf7c814b-5e80-4b31-92e5-974db958854e)
