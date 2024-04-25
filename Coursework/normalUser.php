@@ -13,6 +13,8 @@ if(!isset($_SESSION["staffNumber"])) {
 
 // Include database connection
 include("connect.php");
+$conn = connectToDatabase();
+
 
 //this block of code allows the admin user to delete a task, when the task is deleted it is no longer displayed on the screen or in the database
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {

@@ -55,29 +55,36 @@ if(!isset($_SESSION["staffNumber"])) {
                 <tbody>
                     <!-- this is php code for the search barm it checks that if the task name the user has searched exists in the database it is displayed dynamically on the screen  --> 
                     <?php
-                    include("connect.php");
-                    if(isset($_POST["submit"])){
-                        $search = mysqli_real_escape_string($conn, $_POST["search"]);
-                        $get_tasks= "SELECT * FROM tasklist WHERE taskName LIKE '%$search%'";
-                        $result = mysqli_query($conn, $get_tasks);
-                        if($result){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $taskName = $row["taskName"];
-                                $taskDescription = $row["taskDescription"];
-                                $taskDate = $row["taskDate"];
-                                $whoCanView = $row["whoCanView"];
-                                echo "<tr>
-                                        <td>$taskName</td>
-                                        <td>$taskDescription</td>
-                                        <td>$taskDate</td>
-                                        <td>$whoCanView</td>
-                                    </tr>";
-                            }
-                        } else {
-                            echo "Error: " . mysqli_error($conn); //error handling
-                        }
-                    }
-                    ?>
+include("connect.php");
+$conn = connectToDatabase();
+
+function searchTasks($conn, $search) {
+    $search = mysqli_real_escape_string($conn, $search);
+    $get_tasks= "SELECT * FROM tasklist WHERE taskName LIKE '%$search%'";
+    $result = mysqli_query($conn, $get_tasks);
+    if($result){
+        while($row = mysqli_fetch_assoc($result)){
+            $taskName = $row["taskName"];
+            $taskDescription = $row["taskDescription"];
+            $taskDate = $row["taskDate"];
+            $whoCanView = $row["whoCanView"];
+            echo "<tr>
+                    <td>$taskName</td>
+                    <td>$taskDescription</td>
+                    <td>$taskDate</td>
+                    <td>$whoCanView</td>
+                </tr>";
+        }
+    } else {
+        echo "Error: " . mysqli_error($conn); //error handling
+    }
+}
+
+if(isset($_POST["submit"])){
+    searchTasks($conn, $_POST["search"]);
+}
+?>
+
                 </tbody>
             </table>
         </div>

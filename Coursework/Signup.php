@@ -1,6 +1,7 @@
 <?php
 session_start();
-	include("connect.php");//establishing a connection to the database
+include("connect.php");
+$conn = connectToDatabase();
 
 	//getting all of the signup information from the user to add to the database
 	if(isset($_POST["form1"])){
