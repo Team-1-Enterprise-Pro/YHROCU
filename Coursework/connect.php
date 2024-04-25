@@ -3,21 +3,21 @@ function connectToDatabase() {
     // Start session
     session_start();
 
-    // Database credentials
+    // these are the details to log in to the database, they have been assigned to variables to make the code more dynamic
     $servername = "localhost";
     $username = "root";
     $password = "";
     $db_name = "enterpriseCW";
 
-    // Create connection
+    // Creates a  connection to the database
     $conn = new mysqli($servername, $username, $password, $db_name, 3306);
 
-    // Check connection
+   // Checking the connection has been established successfully
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Return the connection object
+    // Returns the connection object so it can be used
     return $conn;
 }
 ?>

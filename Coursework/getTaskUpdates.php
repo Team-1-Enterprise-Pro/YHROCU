@@ -1,5 +1,7 @@
 <?php
 session_start();
+// Establish a database connection
+// these are the details to log in to the database, they have been assigned to variables to make the code more dynamic
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -8,7 +10,7 @@ $dbname = "enterpriseCW";
 // Establish connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// Checking the connection has been established successfully
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -28,7 +30,7 @@ if ($result->num_rows > 0) {
     }
     echo "</ul>";
 } else {
-    echo "No updates found for Task: $taskName";
+    echo "No updates found for Task: $taskName"; 
 }
 
 $conn->close();

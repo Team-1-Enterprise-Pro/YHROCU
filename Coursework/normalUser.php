@@ -19,7 +19,7 @@ $conn = connectToDatabase();
 //this block of code allows the admin user to delete a task, when the task is deleted it is no longer displayed on the screen or in the database
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
     $taskName = $_POST["taskName"];
-    $deleteFromTable = "DELETE FROM tasklist WHERE taskName = '$taskName'";
+    $deleteFromTable = "DELETE FROM tasklist WHERE taskName = '$taskName'"; //only deletes task from database if it matches
     if ($conn->query($deleteFromTable) === TRUE) {
         echo "";
     } else {
@@ -33,14 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         $newTaskDate = $_POST['newTaskDate'];
     
         // updating in the database
-        $sql = "UPDATE tasklist SET taskDate='$newTaskDate' WHERE taskName='$taskName'";
+        $sql = "UPDATE tasklist SET taskDate='$newTaskDate' WHERE taskName='$taskName'"; //ensuring the right taskdate is updated by checking it with the task name
         if ($conn->query($sql) === TRUE) {
             echo "";
         } else {
             //
         }
     }
-    
+    //toggle button to toggle between Y and N for task completion
     if(isset($_POST["toggleTaskComplete"])) {
         // Prompt for PIN
         $supervisorPIN = $_POST["supervisorPIN"];
@@ -80,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
 <body>
      <!--code for the navbar-->
     <div class="navbar">
+        <!--menu items with appropriate links-->
     <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
         <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
@@ -137,15 +138,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         
         $result = $conn->query($sql);
 
-        // Display tasks
+        // Display tasks dynamically from the database
         if ($result->num_rows > 0) {
             echo "<div class='box'>";
-            echo "<br><br><br>";
+            echo "<br><br><br>"; //formatting so the content from the database is displayed neatly
             echo "<div class='task-container'>";
             echo "<table class='createTaskForm'>";
             echo "<tr><th class='headingAllTasks' colspan='10'>My Tasks</th></tr>"; 
             echo "<tr><th>Task Name</th><th>Task Description</th><th>Task Date</th><th>Task View</th><th>Task Completed</th><th>Delete</th><th>View Updates</th><th>Change Due Date</th><th>Task complete?</th></tr>";
 
+            // this block of code checks whether the task date is in the past by comparing it to todays date, if it is in the past it is marked and 
+            //apprpriate css styles are applied e.g, colour red so it stands out
             while ($row = $result->fetch_assoc()) {
                 $taskDate = $row["taskDate"];
                 $overdueClass = ($taskDate < date('Y-m-d')) ? "overdue" : ""; // Check if the task date is in the past
@@ -157,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
                 echo "<td>" . $row["whoCanView"] . "</td>";
                 echo "<td>" . $row["taskComplete"] . "</td>";
                 echo "<td>";
-                echo "<form method='POST' action='' class='userform' onsubmit='return confirmDelete()'>";
+                echo "<form method='POST' action='' class='userform' onsubmit='return confirmDelete()'>"; //allowing admins to delete task
                 echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
                 echo "<input type='submit' name='deleteTask' value='Delete' class='delete'>";
                 echo "</form>";
@@ -166,16 +169,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
                 echo "<button class='update-button' onclick='openUpdatesList(\"" . $row["taskName"] . "\")'>View Updates</button>";
                 echo "</td>";
                 echo "<td>";
-                echo "<form method='POST' action='' class='userform' onsubmit='return confirmUpdate()'>";
+                echo "<form method='POST' action='' class='userform' onsubmit='return confirmUpdate()'>"; //allowing the supervisor to updaate the task date
                 echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
                 echo "<input type='date' name='newTaskDate' placeholder='New Task Date'>";
                 echo "<input type='submit' name='updateTaskDate' class='date-button' value='Change Due Date'>";
                 echo "</td>";
-                echo "<td>";
+                echo "<td>";//allowing the supervisor to mark the task as completed
                 echo "<form method='POST' action='' class='userform' onsubmit='return confirmToggleTaskComplete()'>";
                 echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
                 echo "<input type='hidden' name='taskCompleted' value='" . $row["taskComplete"] . "'>";
-                echo "<input type='password' name='supervisorPIN' placeholder='Supervisor PIN' required>";
+                echo "<input type='password' name='supervisorPIN' placeholder='Supervisor PIN' required>"; //pin confirmation so not everyone can mark as complete
                 echo "<button type='submit' name='toggleTaskComplete' class='complete-button'>Complete Task</button>";
                 echo "</form>";
                 echo "</td>";
@@ -208,26 +211,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
             document.getElementById("updatePopup").style.display = "block";
         }
 
-        //closing the popup
+        //closing the popup for the task updates
         function closeUpdatePopup() {
             document.getElementById("updatePopup").style.display = "none";
         }
-        
+
+        //function to allow the supervisor to mark a task as completed, a confirmation pin is required for security purposes
         function confirmToggleTaskComplete() {
     var supervisorPIN = prompt("Enter supervisor PIN:");
-    if (supervisorPIN === '1111') {
+    if (supervisorPIN === '1111') { //this is the pin we have set, feel free to change 
         return true;
     } else {
-        alert("Incorrect supervisor PIN. Task completion status not updated.");
+        alert("Incorrect supervisor PIN. Task completion status not updated."); //appropriate error handling for when an incorrect pin is submitted
         return false;
     }
 }
 
+//function for when the pin is correct or incorrect to view the signup page
 function verifyPINAndRedirect() {
     var enteredPIN = prompt("Enter Admin PIN to create new user:");
     var correctPIN = "1234"; // Change this to your correct PIN
     
-    if (enteredPIN === correctPIN) {
+    if (enteredPIN === correctPIN) { //if pin is crrect
         // Correct PIN, redirect to signup page
         window.location.href = "Signup.html";
     } else {

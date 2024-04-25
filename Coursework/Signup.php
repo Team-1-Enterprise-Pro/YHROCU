@@ -1,5 +1,6 @@
 <?php
 session_start();
+//using the connect file to establish a quick connect to the database
 include("connect.php");
 $conn = connectToDatabase();
 
@@ -13,6 +14,7 @@ $conn = connectToDatabase();
 		$email = $_POST["email"];
 		$password = $_POST["password"];
 		
+		//inserting the details into the database
 		$sql = "INSERT INTO `staff`(`firstName`, `lastName`, `team`, `role`, `email`, `password`, `staffNumber`)
 		        VALUES('$firstName', '$lastName', '$team', '$role', '$email', '$password', '$staffNumber')";  
 		$result = mysqli_query($conn, $sql);

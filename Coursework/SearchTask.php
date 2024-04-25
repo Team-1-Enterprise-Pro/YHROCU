@@ -58,13 +58,14 @@ if(!isset($_SESSION["staffNumber"])) {
 include("connect.php");
 $conn = connectToDatabase();
 
+//function for searching tasks in the search page
 function searchTasks($conn, $search) {
     $search = mysqli_real_escape_string($conn, $search);
-    $get_tasks= "SELECT * FROM tasklist WHERE taskName LIKE '%$search%'";
+    $get_tasks= "SELECT * FROM tasklist WHERE taskName LIKE '%$search%'"; //this has allowed alot of flexibility with the task search, if even partial taskname matches it will appear
     $result = mysqli_query($conn, $get_tasks);
     if($result){
         while($row = mysqli_fetch_assoc($result)){
-            $taskName = $row["taskName"];
+            $taskName = $row["taskName"]; //all the details to display about the task if it appears a match
             $taskDescription = $row["taskDescription"];
             $taskDate = $row["taskDate"];
             $whoCanView = $row["whoCanView"];
@@ -91,6 +92,7 @@ if(isset($_POST["submit"])){
     </div>
 
     <script>
+        //function for when the pin is correct or incorrect to view the signup page
     function verifyPINAndRedirect() {
     var enteredPIN = prompt("Enter Admin PIN to create new user:");
     var correctPIN = "1234"; // Change this to your correct PIN

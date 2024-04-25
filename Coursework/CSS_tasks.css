@@ -71,13 +71,14 @@ button {
     background-color: #aaaaaa; 
 }
 
-/* Table styles */
+/* css for Table styles */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
+/* CSS for Table headings and data within rows */
 th, td {
     padding: 30px;
     border-bottom: 1px solid #000000;
@@ -214,14 +215,14 @@ table.createTaskForm tr:first-child {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-
+/* CSS for the popup box on the main task page */
 .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
-
+/* CSS for the popup box on the main task page, this is the box which the user can upates to */
 .close:hover,
 .close:focus {
     color: black;
@@ -231,10 +232,10 @@ table.createTaskForm tr:first-child {
 
 /* Styling for overdue task dates */
 .task-date.overdue {
-    color: red; /* Change text color to red for overdue tasks */
-    /* Add any other styling you want for overdue tasks */
+    color: red; /*  text color to red for overdue tasks */
+    
 }
-
+/* Styling for overdue task dates */
 .exportButton{
     background-color: #888;
 }

@@ -23,7 +23,7 @@
     text-align: center;
     z-index: 1;
 }
-
+/* CSS for menu items */
 .menuitems {
     display: inline-block;
     color: white;
@@ -40,12 +40,12 @@
 }
 
 
-
+/* CSS for headings in the search task page */
 .heading {
     text-align: center;
     margin-top: 0;
 }
-
+/* CSS for input fields in the search task page */
 .input-field {
     width: calc(100% - 20px); 
     margin-bottom: 10px;
@@ -56,7 +56,7 @@
     outline: none;
     background: transparent;
 }
-
+/* CSS for submit/enter in the search task page */
 .enter-btn {
     width: calc(100% - 20px);
     cursor: pointer;
@@ -69,7 +69,7 @@
 }
 
 
-/* Popup Styles */
+/* CSS for the Popup Styles/boxes */
 
 .popup {
     display: none;
@@ -131,6 +131,7 @@ th, td {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+/* CSS for input fields in the search task page */
 .input-container {
     margin-bottom: 20px;
 }
@@ -143,7 +144,7 @@ th, td {
     border-radius: 5px;
     outline: none;
 }
-
+/* CSS for enter/submit in the search task page, these are the green ones on the page */
 .enter-btn {
     width: 100%;
     padding: 10px;

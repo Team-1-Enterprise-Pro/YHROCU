@@ -5,24 +5,25 @@ require_once('TCPDF-main/tcpdf.php');
 // Create a new TCPDF object
 $pdf = new TCPDF();
 
-// Set document infor
+// Set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Your Name');
 $pdf->SetTitle('Task List PDF');
 $pdf->SetSubject('Task List');
 $pdf->SetKeywords('Task, List, PDF');
 
-// Add a page
+// Adding a page
 $pdf->AddPage();
 
 // Establish a database connection
+// these are the details to log in to the database, they have been assigned to variables to make the code more dynamic
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "enterpriseCW";
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);  // Creates a  connection to the database
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error); // Checking the connection has been established successfully
 }
 
 // Fetch task data from the database

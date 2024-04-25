@@ -21,7 +21,7 @@ $dbname = "enterpriseCW";
 //establishing a connection to the database using the credentials above
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-if ($conn->connect_error) {
+if ($conn->connect_error) { // Checking the connection has been established successfully
     die("Connection failed: " . $conn->connect_error);
 }
 
@@ -92,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
 <body>
      <!--code for the navbar-->
     <div class="navbar">
+        <!--menu items with appropriate links-->
     <div class="menuitems"><a href="createTask.php">Create Task</a></div>
         <div class="menuitems"><a href="tasks.php">All Tasks</a></div>
         <div class="menuitems"><a href="normalUser.php">My Tasks</a></div>
@@ -150,15 +151,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         // Display tasks
         if ($result->num_rows > 0) {
             echo "<div class='box'>";
-            echo "<br><br><br>";
+            echo "<br><br><br>"; //aporpriate formatting so it gets displayed neatly from the database
             echo "<div class='task-container'>";
             echo "<table class='createTaskForm'>";
             echo "<tr><th class='headingAllTasks' colspan='10' style='font-size: 30px;'>All Tasks</th>";
             echo "<tr>";
-            echo "<th colspan='9'><button class = 'exportButton' onclick=\"exportToPDF()\">Export to PDF</button></th>";
+            echo "<th colspan='9'><button class = 'exportButton' onclick=\"exportToPDF()\">Export to PDF</button></th>"; //button to export the task data
             echo "</tr>";
             echo "<tr><th>Task Name</th><th>Task Description</th><th>Task Date</th><th>Task View</th><th>Task Completed</th><th>Delete</th><th>View Updates</th><th>Change Due Date</th><th>Task complete?</th></tr>";
         
+             // this block of code checks whether the task date is in the past by comparing it to todays date, if it is in the past it is marked and 
+            //apprpriate css styles are applied e.g, colour red so it stands out
             while ($row = $result->fetch_assoc()) {
                 $taskDate = $row["taskDate"];
                 $overdueClass = ($taskDate < date('Y-m-d')) ? "overdue" : ""; // Check if the task date is in the past
@@ -176,15 +179,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
                 echo "</form>";
                 echo "</td>";
                 echo "<td>";
-                echo "<button class='update-button' onclick='openUpdatesList(\"" . $row["taskName"] . "\")'>View Updates</button>";
+                echo "<button class='update-button' onclick='openUpdatesList(\"" . $row["taskName"] . "\")'>View Updates</button>"; //allowing the supervisor to update the task date
                 echo "</td>";
                 echo "<td>";
-                echo "<form method='POST' action='' class='userform' onsubmit='return confirmUpdate()'>";
+                echo "<form method='POST' action='' class='userform' onsubmit='return confirmUpdate()'>"; //confirmation
                 echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
                 echo "<input type='date' name='newTaskDate' placeholder='New Task Date'>";
-                echo "<input type='submit' name='updateTaskDate' class='date-button' value='Change Due Date'>";
+                echo "<input type='submit' name='updateTaskDate' class='date-button' value='Change Due Date'>"; //changing the due date on the task
                 echo "</td>";
-                echo "<td>";
+                echo "<td>";//allowing the supervisor to mark the task as completed
                 echo "<form method='POST' action='' class='userform' onsubmit='return confirmToggleTaskComplete()'>";
                 echo "<input type='hidden' name='taskName' value='" . $row["taskName"] . "'>";
                 echo "<input type='hidden' name='taskCompleted' value='" . $row["taskComplete"] . "'>";
@@ -246,7 +249,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         }
     });
 
-
+    //function so the task data can be exported to a PDF
         function exportToPDF() {
         var link = document.createElement('a');
         link.href = 'generate_pdf.php'; // URL to the PHP script that generates the PDF
@@ -262,10 +265,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteTask"])) {
         document.body.removeChild(link);
     }
 
-
+//function to allow the supervisor to mark a task as completed, a confirmation pin is required for security purposes
 function confirmToggleTaskComplete() {
     var supervisorPIN = prompt("Enter supervisor PIN:");
-    if (supervisorPIN === '1111') {
+    if (supervisorPIN === '1111') {//this is the pin we have set, feel free to change 
         return true;
     } else {
         alert("Incorrect supervisor PIN. Task completion status not updated.");
@@ -273,10 +276,10 @@ function confirmToggleTaskComplete() {
     }
 }
 
-
+//function for when the pin is correct or incorrect to view the signup page
 function verifyPINAndRedirect() {
     var enteredPIN = prompt("Enter Admin PIN to create new user:");
-    var correctPIN = "1234"; 
+    var correctPIN = "1234"; //this is the pin we have set for the admin, feel free to change 
     
     if (enteredPIN === correctPIN) {
         // Correct PIN, redirect to signup page

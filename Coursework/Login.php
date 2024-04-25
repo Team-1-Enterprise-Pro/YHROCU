@@ -1,21 +1,22 @@
 <?php
 session_start();
-
+// Establish a database connection
+// these are the details to log in to the database, they have been assigned to variables to make the code more dynamic
 $servername = "localhost";
 $username = "root";
 $password = "";
 $db_name = "enterpriseCW";
 
-// Create connection
+// Create connection to the database
 $conn = new mysqli($servername, $username, $password, $db_name);
 
-// Check connection
+// Check if connection successful
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 function checkLoggedIn() {
-    // Check if user is already logged in
+    // Check if user is already logged in important as some content only visible to logged in users
     if(isset($_SESSION["staffNumber"])) {
         // User is already logged in, redirect to tasks.php or any other page
         header("Location: tasks.php");
@@ -26,9 +27,9 @@ function checkLoggedIn() {
 checkLoggedIn();
 
 function handleLoginFormSubmission($conn) {
-    // Check if form is submitted
+    // Check if the login form is submitted
     if(isset($_POST["submit"])) {
-        $staffNumber = $_POST["staffNumber"];
+        $staffNumber = $_POST["staffNumber"]; //these are taken from the login.html page when the user fills out the login page
         $password = $_POST["password"];
 
         // Query database to check user credentials
@@ -45,7 +46,7 @@ function handleLoginFormSubmission($conn) {
             exit();
         } else {
             // Invalid username or password, redirect to login page with error message
-            header("Location: Login.html?error=invalid_credentials");
+            header("Location: Login.html?error=invalid_credentials"); //error handling
             exit();
         }
     }

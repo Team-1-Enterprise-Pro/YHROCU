@@ -20,16 +20,16 @@
             <!--creating a login form so user can submit the login details, these will be checked against using POST method-->
             <!--the login.php is where the details will be checked against the database-->
             <form id="login" class="input-box" name="form" action="Login.php" method="POST">
-
+                <!-- input fields where the user enters their information to log in -->
                 <div class="input-container">
                     <i class="fa-solid fa-envelope"></i>
-                    <input name="staffNumber" type="text" class="input-field" placeholder="Staff Number" required>
+                    <input name="staffNumber" type="text" class="input-field" placeholder="Staff Number" required> <!-- input field for staff number -->
                 </div>
                 <div class="input-container">
                     <i class="fa-solid fa-lock"></i>
-                    <input name="password" type="text" class="input-field" placeholder="Password" required>
+                    <input name="password" type="text" class="input-field" placeholder="Password" required> <!-- input field for password -->
                 </div>
-                <button type="submit" class="enter-btn" name="submit"><b>Log In</b></button>
+                <button type="submit" class="enter-btn" name="submit"><b>Log In</b></button> <!-- submit button -->
             </form>
 
         </div>
