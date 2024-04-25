@@ -7,6 +7,7 @@ How to run the project:
 1. To run the code, make sure the entire Coursework folder is placed into the htdocs folder for xampp, the files can then be run locally and viewed on google e.g., http://localhost/Coursework/login.html
 2. Make sure to import the database tables using the file in the SQL folder
 3. To ensure the exporting tasks feature works make sure to download the TCPDF library and place it within the same directory where all the project files are
+4. If any assistance is required feel free to reach out by email
 
 Team members:
 17003493 - Sania Bibi (s.bibi60@bradford.ac.uk) 
